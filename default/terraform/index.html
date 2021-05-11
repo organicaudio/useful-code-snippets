@@ -1,0 +1,2083 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.0">
+    
+    
+      
+        <title>Terraform - Useful Development Snippets & Guides</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bc7e593a.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab28b872.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#009485">
+        
+      
+    
+    
+    
+      
+        
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#terraform" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="Useful Development Snippets &amp; Guides" class="md-header-nav__button md-logo" aria-label="Useful Development Snippets & Guides">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Useful Development Snippets & Guides
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Terraform
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Useful Development Snippets &amp; Guides" class="md-nav__button md-logo" aria-label="Useful Development Snippets & Guides">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Useful Development Snippets & Guides
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../REST%20API%20-%20Homeassistant%20-%20Hue%20Sensor/" class="md-nav__link">
+      REST API   Homeassistant   Hue Sensor
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Default
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Default" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        Default
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../WSL/" class="md-nav__link">
+      Linux Subsystem for Windows (WSL)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ansible-overview/" class="md-nav__link">
+      ansible
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../certificates/" class="md-nav__link">
+      Certificates and encryption
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../git/" class="md-nav__link">
+      Git
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../gitpod/" class="md-nav__link">
+      Gitpod
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../jdbc/" class="md-nav__link">
+      jdbc
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../jenkins/" class="md-nav__link">
+      Jenkins (pipeline)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../maven-memory-aid/" class="md-nav__link">
+      maven memory aid
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../mockito-memoery-aid/" class="md-nav__link">
+      Mockito memory aid
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../nginx/" class="md-nav__link">
+      nginx memory aid
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../raspberry/" class="md-nav__link">
+      raspberry pi
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Terraform
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      Terraform
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    Setup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wording" class="md-nav__link">
+    Wording
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli" class="md-nav__link">
+    CLI
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resource-dependencies" class="md-nav__link">
+    Resource Dependencies
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provisioning" class="md-nav__link">
+    Provisioning
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-variables" class="md-nav__link">
+    Input Variables
+  </a>
+  
+    <nav class="md-nav" aria-label="Input Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-use-variable" class="md-nav__link">
+    How to use variable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-declare-a-variable" class="md-nav__link">
+    How to declare a variable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-to-initialize-variable" class="md-nav__link">
+    Where to initialize variable:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-types" class="md-nav__link">
+    Variable Types
+  </a>
+  
+    <nav class="md-nav" aria-label="Variable Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lists" class="md-nav__link">
+    Lists
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maps" class="md-nav__link">
+    Maps
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-variables" class="md-nav__link">
+    Output Variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modules" class="md-nav__link">
+    modules
+  </a>
+  
+    <nav class="md-nav" aria-label="modules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-module" class="md-nav__link">
+    use module
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-module" class="md-nav__link">
+    create module
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote-state-storage" class="md-nav__link">
+    Remote State Storage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#expressions" class="md-nav__link">
+    expressions
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../tools/" class="md-nav__link">
+      helpful stuff
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../vscode/" class="md-nav__link">
+      VS Code
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../yaml-overview/" class="md-nav__link">
+      yaml overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Docker
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Docker" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Docker
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../docker/01_docker-memory-aid/" class="md-nav__link">
+      Docker CLI useful command
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../docker/02_dockerfile/" class="md-nav__link">
+      Dockerfile
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../docker/03_docker-persisting-data/" class="md-nav__link">
+      Docker persisting data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../docker/04_docker-networking/" class="md-nav__link">
+      Docker networking
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../docker/Docker%20Install%20-%20File%20Browser/" class="md-nav__link">
+      Docker Install   File Browser
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../docker/Docker%20Install%20-%20FileBot/" class="md-nav__link">
+      Docker Install   FileBot
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../docker/Docker%20Install%20-%20Hassio%20AppDaemon/" class="md-nav__link">
+      Docker Install   Hassio AppDaemon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../docker/Docker%20Install%20-%20LetsEncrypt/" class="md-nav__link">
+      Docker Install   LetsEncrypt
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../docker/Docker%20Install%20-%20Maloja%20%28Spotify%20Scrobbler%29/" class="md-nav__link">
+      Docker Install   Maloja (Spotify Scrobbler)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../docker/Docker%20Install%20-%20Monit%20%26%20Mmonit%20-%20System%20Monitoring/" class="md-nav__link">
+      Docker Install   Monit & Mmonit   System Monitoring
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../docker/Dozzle%20-%20WebUI%20Log%20Viewer%20for%20Docker/" class="md-nav__link">
+      Dozzle - WebUI Log Viewer for Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../docker/docker-compose/" class="md-nav__link">
+      Docker compose
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../docker/docker-database-examples/" class="md-nav__link">
+      Examples for containerized databases
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../docker/docker-dozzle-logviewer/" class="md-nav__link">
+      Dozzle - WebUI Log Viewer for Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../docker/docker-file-browser/" class="md-nav__link">
+      Docker file browser
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../docker/docker-filebot/" class="md-nav__link">
+      Docker filebot
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../docker/docker-letsencrypt/" class="md-nav__link">
+      Docker letsencrypt
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../docker/docker-maloja-spotify-scrobble/" class="md-nav__link">
+      Docker maloja spotify scrobble
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../docker/docker-mmonit-system-monitoring/" class="md-nav__link">
+      Docker mmonit system monitoring
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Homeassistant
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Homeassistant" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        Homeassistant
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../homeassistant/hassio-appdaemon/" class="md-nav__link">
+      Hassio appdaemon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../homeassistant/homeassistant-rest-api-sensor-state/" class="md-nav__link">
+      Homeassistant rest api sensor state
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Ios
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Ios" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon"></span>
+        Ios
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ios/Reference%3A%20iOS%20App%20URL%20Scheme%20Names%20%26%20Paths%20for%20Shortcuts/" class="md-nav__link">
+      Reference: iOS App URL Scheme Names & Paths for Shortcuts
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ios/iOS%20Supervised%20Manage%20Devices%20MDM/" class="md-nav__link">
+      iOS Supervised Manage Devices / MDM
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Kubernetes
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Kubernetes" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon"></span>
+        Kubernetes
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../kubernetes/kuberentes/" class="md-nav__link">
+      Kuberentes overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../kubernetes/kubernetes-networking/" class="md-nav__link">
+      kubernetes networking
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Linux (debian based)
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Linux (debian based)" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon"></span>
+        Linux (debian based)
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../linux%20%28debian%20based%29/desktop-files/" class="md-nav__link">
+      Application Interface
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../linux%20%28debian%20based%29/linux_filesystem/" class="md-nav__link">
+      Linux filesystem
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../linux%20%28debian%20based%29/network/" class="md-nav__link">
+      network stuff
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../linux%20%28debian%20based%29/set-path/" class="md-nav__link">
+      set path variable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../linux%20%28debian%20based%29/set-python-version/" class="md-nav__link">
+      Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8-6" type="checkbox" id="nav-8-6">
+    
+    <label class="md-nav__link" for="nav-8-6">
+      Deepin
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Deepin" data-md-level="2">
+      <label class="md-nav__title" for="nav-8-6">
+        <span class="md-nav__icon md-icon"></span>
+        Deepin
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../linux%20%28debian%20based%29/deepin/file-watchers/" class="md-nav__link">
+      not enough files watchers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../linux%20%28debian%20based%29/deepin/remove-firefox-titlebar/" class="md-nav__link">
+      remove titlebar form firefox
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../linux%20%28debian%20based%29/deepin/remove-vscode-titlebar/" class="md-nav__link">
+      remove titlebar form vscode
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../linux%20%28debian%20based%29/deepin/remove_ulauncher_black_frame/" class="md-nav__link">
+      remove black frame from ulauncher
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
+    
+    <label class="md-nav__link" for="nav-9">
+      My server
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="My server" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        <span class="md-nav__icon md-icon"></span>
+        My server
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../my-server/drone_ci/" class="md-nav__link">
+      setup drone ci
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../my-server/server-infra/" class="md-nav__link">
+      my server setup
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
+    
+    <label class="md-nav__link" for="nav-10">
+      Spring
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Spring" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        <span class="md-nav__icon md-icon"></span>
+        Spring
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../spring/0_spring-fundamentals/" class="md-nav__link">
+      Spring fundamentals
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../spring/1_spring-boot/" class="md-nav__link">
+      Spring Boot
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../spring/2_spring-boot-data/" class="md-nav__link">
+      Spring Boot Data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../spring/3_spring-rest/" class="md-nav__link">
+      Spring Boot rest (with HATEOAS)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../spring/spring-boot-docker/" class="md-nav__link">
+      Spring Boot Dockerize
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../spring/spring-helpful-properties/" class="md-nav__link">
+      Spring Boot useful properties
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../spring/spring-test/" class="md-nav__link">
+      Spring Boot test
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-11" type="checkbox" id="nav-11">
+    
+    <label class="md-nav__link" for="nav-11">
+      Uncategorized
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Uncategorized" data-md-level="1">
+      <label class="md-nav__title" for="nav-11">
+        <span class="md-nav__icon md-icon"></span>
+        Uncategorized
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../uncategorized/10%20Alpine%20Linux%20apk%20Command%20Examples%20-%20nixCraft/" class="md-nav__link">
+      10 Alpine Linux apk Command Examples   nixCraft
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../uncategorized/Alpine%20Linux%20-%20Wikipedia/" class="md-nav__link">
+      Alpine Linux   Wikipedia
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../uncategorized/Audio%20-%20BlackHole/" class="md-nav__link">
+      Audio   BlackHole
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../uncategorized/Cloudflare%20domain%20setup%20guide%20-%20Ghost%28Pro%29/" class="md-nav__link">
+      Cloudflare domain setup guide   Ghost(Pro)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../uncategorized/Configure%20Transmission%20for%20VPN%20Split%20Tunneling%20Ubuntu%2016.04%20%2B%20Debian%208%20%E2%80%A2/" class="md-nav__link">
+      Configure Transmission for VPN Split Tunneling Ubuntu 16.04 + Debian 8 •
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../uncategorized/File%20Sync%20-%20ChronoSync%204.9.8%20-%20Synchronize%2C%20backup%2C%20and%20create%20bootable%20backups/" class="md-nav__link">
+      File Sync   ChronoSync 4.9.8   Synchronize, backup, and create bootable backups
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../uncategorized/Google%20domain%20setup%20guide%20-%20Ghost%28Pro%29/" class="md-nav__link">
+      Google domain setup guide   Ghost(Pro)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../uncategorized/How%20to%20get%20regular%20stuff%20working/" class="md-nav__link">
+      How to get regular stuff working
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../uncategorized/How%20to%20use%20NordVPN%20command-line%20utility%20%E2%80%93%20sleeplessbeastie%27s%20notes/" class="md-nav__link">
+      How to use NordVPN command line utility – sleeplessbeastie's notes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../uncategorized/WSL/" class="md-nav__link">
+      Linux Subsystem for Windows (WSL)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../uncategorized/ansible-overview/" class="md-nav__link">
+      ansible
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../uncategorized/certificates/" class="md-nav__link">
+      Certificates and encryption
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../uncategorized/docker-transmission-openvpn/" class="md-nav__link">
+      Docker transmission openvpn
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../uncategorized/git/" class="md-nav__link">
+      Git
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../uncategorized/gitpod/" class="md-nav__link">
+      Gitpod
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../uncategorized/vscode/" class="md-nav__link">
+      VS Code
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../uncategorized/yaml-overview/" class="md-nav__link">
+      yaml overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-12" type="checkbox" id="nav-12">
+    
+    <label class="md-nav__link" for="nav-12">
+      Web
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Web" data-md-level="1">
+      <label class="md-nav__title" for="nav-12">
+        <span class="md-nav__icon md-icon"></span>
+        Web
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../web/css/" class="md-nav__link">
+      css
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../web/dom/" class="md-nav__link">
+      dom vs. virtual dom vs. shadow dom
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../web/javascript/" class="md-nav__link">
+      javascript
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../web/layout/" class="md-nav__link">
+      css layout techniques
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../web/planning-steps/" class="md-nav__link">
+      Webpage planning steps
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../web/vue/" class="md-nav__link">
+      Vue JS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../web/web-evolution/" class="md-nav__link">
+      overlook over web evolution
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    Setup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wording" class="md-nav__link">
+    Wording
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli" class="md-nav__link">
+    CLI
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resource-dependencies" class="md-nav__link">
+    Resource Dependencies
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provisioning" class="md-nav__link">
+    Provisioning
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-variables" class="md-nav__link">
+    Input Variables
+  </a>
+  
+    <nav class="md-nav" aria-label="Input Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-use-variable" class="md-nav__link">
+    How to use variable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-declare-a-variable" class="md-nav__link">
+    How to declare a variable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-to-initialize-variable" class="md-nav__link">
+    Where to initialize variable:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-types" class="md-nav__link">
+    Variable Types
+  </a>
+  
+    <nav class="md-nav" aria-label="Variable Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lists" class="md-nav__link">
+    Lists
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maps" class="md-nav__link">
+    Maps
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-variables" class="md-nav__link">
+    Output Variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modules" class="md-nav__link">
+    modules
+  </a>
+  
+    <nav class="md-nav" aria-label="modules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-module" class="md-nav__link">
+    use module
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-module" class="md-nav__link">
+    create module
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote-state-storage" class="md-nav__link">
+    Remote State Storage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#expressions" class="md-nav__link">
+    expressions
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="terraform">Terraform</h1>
+<ul>
+<li>"Terraform is an open-source infrastructure as code software tool that provides a consistent CLI workflow to manage hundreds of cloud services. Terraform codifies cloud APIs into declarative configuration files."</li>
+<li><a href="https://gist.github.com/CrowdSalat/bcab0fdf534d7cadb9714079066e9013">Example tf files</a></li>
+<li><a href="https://www.terraform.io/docs/index.html">official documentation</a></li>
+<li><a href="https://learn.hashicorp.com/terraform">official learn stuff</a></li>
+<li>you can also <a href="https://www.terraform.io/docs/import/index.html">import existing infrastructure</a> into terraform</li>
+</ul>
+<h2 id="setup">Setup</h2>
+<ul>
+<li>Install <a href="https://www.terraform.io/downloads.html">manually</a> or use a <a href="https://www.terraform.io/docs/cli/install/apt.html">repository manager</a> </li>
+<li>enable autocomplete <code>terraform -install-autocomplete</code></li>
+<li>Read provider specific setup documentation on <a href="https://registry.terraform.io/browse/providers">terraform registry</a> or <a href="https://www.terraform.io/docs/providers/">here</a> </li>
+<li>Create folder, create your tf files and run: <code>terraform init &amp;&amp; terraform apply</code></li>
+</ul>
+<h2 id="wording">Wording</h2>
+<ul>
+<li>a <code>provider</code> creates and manages resources. They wrap the API of a service (provider) like AWS, Azure or GCP.</li>
+<li>If you use multiple providers you can qualifiy which provider uses which resource.</li>
+<li>a <code>resource</code> might be a physical resource like a aws EC2 instance or a logical resource like a application.</li>
+<li>A resource has a type and a name (e.g. <code>resource "aws_instance" "example"`{...}</code>)and can be configured inside the curly brackets.</li>
+<li>a <code>datasource</code> is a way to get information about existing infrastructure (mostly useful when it is not managed by terraform or by another terraform configuration)</li>
+<li>a set of .tf files is called a <strong>terraform configuration</strong></li>
+</ul>
+<h2 id="cli">CLI</h2>
+<pre><code class="language-shell">terraform init # initializes various local settings 
+terraform fmt # format all files in directory
+terraform validate # validate file
+
+terraform apply # checks diff between config file and real infrastructure and creates execution plan to eliminate this diff
+
+terraform state # The state of the infrastructure is saved in terraform.tfstate file. It can be manually modified by this command.
+
+terraform destroy # completely destroys the Terraform-managed infrastructure
+</code></pre>
+<h2 id="resource-dependencies">Resource Dependencies</h2>
+<p>There are explicit and implicit dependencies for creating a order of actions.</p>
+<ul>
+<li>explicit: with the <code>depends_on</code> field of a resource.</li>
+<li>implicit: e.g. usage of <code>instance = aws_instance.example.id</code></li>
+</ul>
+<p>Resources which are not dependant on others can be build in parallel.</p>
+<h2 id="provisioning">Provisioning</h2>
+<ul>
+<li>Only necessary if you do not use image-based infrastructure (you can create images with vagrant or packer).</li>
+<li>"can be used to model specific actions on the local machine or on a remote machine in order to prepare servers or other infrastructure objects for service."</li>
+<li>is not declarative</li>
+<li>provisioner are defined inside a resource and have a type like: <code>local-exec</code> or <code>remote-exec</code></li>
+<li>Are for bootstrapping components (on creation) not to change software on a running component.</li>
+<li><strong>You need to destroy the infrastructure if the resource already exist, so the resource will be recreated and the bootstrapping logic of the provisioner can be done.</strong></li>
+<li>If a resource successfully creates but fails during provisioning, Terraform will error and mark the resource as "tainted".</li>
+<li>Terraform tries to destroy and recreate tainted resources every time <em>apply</em> ist called.</li>
+<li><code>terraform taint &lt;resource.id&gt;</code> manually marks a resource as tainted.</li>
+</ul>
+<h2 id="input-variables">Input Variables</h2>
+<p><a href="https://www.terraform.io/docs/configuration/variables.html">Official documentation</a></p>
+<h3 id="how-to-use-variable">How to use variable</h3>
+<pre><code class="language-hcl">var.my_api_token
+
+#use nested var
+var.system.name
+#use list
+element(var.system.used_port, 0)
+# use map
+lookup(var.system.port_app, &quot;80&quot;, &quot;default_val&quot;)
+</code></pre>
+<h3 id="how-to-declare-a-variable">How to declare a variable</h3>
+<pre><code class="language-hcl"># with default value and description
+variable &quot;my_api_token&quot; {
+  type        = string # number, bool, list(&lt;TYPE&gt;), map(&lt;TYPE&gt;) etc.
+  description = &quot;An API token.&quot;
+  default = &quot;1234-5679-123&quot;
+  #sensitive=true #does not show value in logs
+}
+
+# nested variable
+```hcl
+variable &quot;system&quot; {
+  type = object({
+    name      = string
+    used_ports = list(string)
+    port_app = map(string)
+  })
+  default = object({
+    name      = &quot;VLS&quot;
+    used_ports = [&quot;80&quot;,&quot;43&quot;]
+    port_app ={&quot;80&quot;:&quot;http&quot;,&quot;43&quot;:&quot;https&quot;}
+  })
+}
+
+</code></pre>
+<h3 id="where-to-initialize-variable">Where to initialize variable:</h3>
+<p>In a nutshell:</p>
+<ul>
+<li>preset in variables.tf file via the <em>default</em> field</li>
+<li>overwrite console (<code>-var 'var_name=var_value'</code>)</li>
+<li>overwrite in terraform.tfvars file</li>
+<li>overwrite in *.tfvars file and  (<code>-var-file 'production.tfvars'</code>)</li>
+<li>overwrite in environmental variables (TF_VARS_)</li>
+</ul>
+<p>A bit more extensive:</p>
+<ul>
+<li>variables are defined in a <em>variables.tf</em> file and may be assigned a default value</li>
+<li>variables are accessed with a <code>var.&lt;variable_name&gt;</code> notation.</li>
+<li>variables can be overwritten in console: <code>terraform apply -var 'region=us-east-2'</code></li>
+<li>variables can also be overwritten from file. Terraform search automatically for <em>terraform.tfvars</em> or <em>.auto.tfvars</em> files. Alternatively you can pass a file in console <code>terraform apply -var-file 'production.tfvars'</code>.</li>
+<li>variables can be overwritten by environment variables. They need to start with <strong>TF_VAR_</strong><em><name of variable to overwrite></em>. Environment variables are limited to string-type variables (can not use List and map type variables).</li>
+<li>variables which are unspecified are asked for after executing <code>terraform apply</code></li>
+</ul>
+<h3 id="variable-types">Variable Types</h3>
+<h4 id="lists">Lists</h4>
+<pre><code class="language-hcl"># define
+variable &quot;cidrs&quot; { type = list }`
+
+# init
+cidrs = [ &quot;10.0.0.0/16&quot;, &quot;10.1.0.0/16&quot; ]
+</code></pre>
+<h3 id="maps">Maps</h3>
+<pre><code class="language-hcl"># define and init
+variable &quot;amis&quot; {
+  type = &quot;map&quot;
+  default = {
+    &quot;us-east-1&quot; = &quot;ami-b374d5a5&quot;
+    &quot;us-west-2&quot; = &quot;ami-4b32be2b&quot;
+  }
+}
+
+# use
+resource &quot;aws_instance&quot; &quot;example&quot; {
+  ami           = var.amis[&quot;us-east-1&quot;]
+  instance_type = &quot;t2.micro&quot;
+}
+
+</code></pre>
+<h2 id="output-variables">Output Variables</h2>
+<p><code>Output blocks can be pasted in any of the *.tf files. Output are printed after ``terraform output`` or ``terraform apply`` are run.
+In a rot module the label of the output block is showed to the user as the name of the variable. In a module the label can be used to reference the variable. You may need to prefix the variable with the terraform type like</code>data<code>or</code>var`.</p>
+<p>Example:</p>
+<pre><code class="language-hcl">output &quot;ip&quot; {
+  value = aws_eip.ip.public_ip
+}
+</code></pre>
+<h2 id="modules">modules</h2>
+<p>Modules are self-contained packages of Terraform configurations that are managed as a group. Any set of Terraform configuration files in a folder can be a module. The official modules can be downloaded from <a href="https://registry.terraform.io/">Terraform Registry</a>.</p>
+<h3 id="use-module">use module</h3>
+<ul>
+<li>After adding new modules you need to rerun <code>terraform init</code> not only <code>terraform apply</code></li>
+<li><code>terraform get</code> will download the modules</li>
+<li>Modules reside under ~/.terraform/modules/<the module alias given in root tf script></li>
+<li>You can define <a href="https://www.terraform.io/docs/modules/sources.html">from where to download the module</a> via the <code>source</code> attribute of <code>module</code> <ul>
+<li>local: <code>./my-module</code></li>
+<li>git: 'github.com/crowdsalat/examplemodule'</li>
+<li>Terraform Registry: <code>source = 'hashicorp/consul/aws'</code></li>
+</ul>
+</li>
+</ul>
+<p>Example for module usage via registry:</p>
+<pre><code class="language-hcl">module &quot;consul&quot; {
+  source      = &quot;hashicorp/consul/aws&quot;
+  version = &quot;0.7.3&quot; # optional
+  num_servers = &quot;3&quot;
+}
+</code></pre>
+<h3 id="create-module">create module</h3>
+<ul>
+<li>A module is a bunch of .tf files in a directory</li>
+<li>The files are only for organization, terraform just merges them to one file before using </li>
+<li>The name of the module is defined by the folder </li>
+</ul>
+<p>Files (convention):</p>
+<ul>
+<li>main.tf</li>
+<li>variables.tf: input parameters for the module  </li>
+<li>outputs.tf: return values of the module  </li>
+<li>backend.tf: define remote backend</li>
+<li>variables.tf: used variables</li>
+</ul>
+<h2 id="remote-state-storage">Remote State Storage</h2>
+<ul>
+<li>Use a <strong>remote backend</strong> to store state-data on a server.</li>
+<li>When not configured the state is stored locally in a terraform.tfstate file</li>
+<li>There are different backends. Terraform Cloud is one of such.</li>
+</ul>
+<p>Google cloud backend example:</p>
+<pre><code class="language-hcl"> backend &quot;gcs&quot; {
+    bucket = &quot;existing-bucket-name&quot;
+  }
+</code></pre>
+<h2 id="expressions">expressions</h2>
+<p><a href="https://www.terraform.io/docs/configuration/expressions/index.html">Documentation</a></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../raspberry/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                raspberry pi
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../tools/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                helpful stuff
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.6a3d08fc.min.js"></script>
+      <script src="../../assets/javascripts/bundle.71201edf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
