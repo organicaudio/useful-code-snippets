@@ -1,0 +1,7 @@
+theme: 
+    name: material
+    palette:
+        scheme: slate
+        primary: teal
+site_name: Useful Development Snippets & Guides
+    
