@@ -1012,6 +1012,8 @@ Open = carbmanager://
 	•	Cash App:
 Open = squarecash://
        cashme://
+       •	Chase Mobile Banking
+Open = ydl://
 	•	Citi Mobile:
 Open = citiglobal://
 	•	Clash of Clans:
@@ -1346,6 +1348,8 @@ Open = planner://
 Open = powerpoint://
 	•	Microsoft SharePoint:
 Open = ms-sharepoint://
+	•	Microsoft Teams:
+Open = msteams://
 	•	Microsoft Word:
 Open = word://
 	•	MoviePass:
